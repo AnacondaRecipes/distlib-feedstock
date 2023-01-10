@@ -14,7 +14,7 @@ source:
 build:
   number: {{ build }}
   script: {{ PYTHON }} -m pip install . -vv
-  skip: True  # [py not (2.7 or >=3.6)]
+  skip: True  # [py not (27 or <37)]
 
 requirements:
   host:
