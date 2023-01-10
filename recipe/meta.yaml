@@ -1,5 +1,7 @@
 {% set name = "distlib" %}
-{% set version = "0.3.2" %}
+{% set version = "0.3.6" %}
+{% set checksum = "14bad2d9b04d3a36127ac97f30b12a19268f211063d8f8ee4f47108896e11b46" %}
+{% set build = "0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +9,12 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
-  sha256: 106fef6dc37dd8c0e2c0a60d3fca3e77460a48907f335fa28420463a6f799736
+  sha256: {{ checksum }}
 
 build:
-  number: 0
-  noarch: python
+  number: {{ build }}
   script: {{ PYTHON }} -m pip install . -vv
+  Skip: True  # [py not (2.7|>=3.6)]
 
 requirements:
   host:
