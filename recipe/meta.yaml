@@ -14,7 +14,7 @@ source:
 build:
   number: {{ build }}
   script: {{ PYTHON }} -m pip install . -vv
-  Skip: True  # [py not (2.7|>=3.6)]
+  skip: True  # [py not (2.7 or >=3.6)]
 
 requirements:
   host:
@@ -36,12 +36,13 @@ test:
 
 about:
   home: https://pypi.org/project/distlib/
-  summary: Distribution utilities
-  Description: A library which implements low-level functions that relate to packaging and distribution of python.
+  summary: Distribution utilities for python
+  description: |
+    A library which implements low-level functions that relate to packaging and distribution of python.
   dev_url: https://github.com/pypa/distlib
   doc_url: https://distlib.readthedocs.io/en/latest/
   license: Python-2.0
-  license_family: Python
+  license_family: PSF
   license_file: LICENSE.txt
 
 extra:
