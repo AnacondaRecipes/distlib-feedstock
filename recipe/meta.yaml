@@ -39,7 +39,7 @@ about:
   description: |
     A library which implements low-level functions that relate to packaging and distribution of python.
   dev_url: https://github.com/pypa/distlib
-  doc_url: https://distlib.readthedocs.io/en/latest/
+  doc_url: https://distlib.readthedocs.io/
   license: Python-2.0
   license_family: PSF
   license_file: LICENSE.txt
