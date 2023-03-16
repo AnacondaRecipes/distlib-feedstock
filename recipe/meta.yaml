@@ -12,6 +12,7 @@ source:
   sha256: {{ checksum }}
 
 build:
+  # trigger 1
   number: {{ build }}
   script: {{ PYTHON }} -m pip install . -vv
   skip: True  # [not (py27 or py>36)]
