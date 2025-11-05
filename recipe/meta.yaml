@@ -1,6 +1,6 @@
 {% set name = "distlib" %}
-{% set version = "0.3.8" %}
-{% set checksum = "1530ea13e350031b6312d8580ddb6b27a104275a31106523b8f123787f494f64" %}
+{% set version = "0.4.0" %}
+{% set checksum = "feec40075be03a04501a973d81f633735b4b69f98b05450592310c0f401a4e0d" %}
 {% set build = 0 %}
 
 package:
@@ -8,22 +8,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: {{ checksum }}
 
 build:
-  number: {{ build }}
+  number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
-  skip: True  # [not (py27 or py>36)]
+  skip: true  # [not (py27 or py>36)]
 
 requirements:
   host:
     - pip
     - python
-    - setuptools
-    - wheel
+    - setuptools >=44
+    - wheel >=0.29.0
   run:
     - python
+  build:
+    - {{ compiler('c') }}
 
 test:
   imports:
