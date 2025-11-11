@@ -54,7 +54,9 @@ test:
     - pytest
   commands:
     - pip check
-    - pytest -vv {{ deselected_tests | join(" ")}}
+    - pytest -vv {{ deselected_tests | join(" ")}} # [win]
+    - pytest -vv {{ deselected_tests | join(" ")}} {{ deselected_tests_linux | join(" ")}} # [linux]
+    - pytest -vv {{ deselected_tests | join(" ")}} {{ deselected_tests_osx | join(" ")}} # [osx]
 
 about:
   home: https://pypi.org/project/distlib
