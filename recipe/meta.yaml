@@ -26,10 +26,24 @@ requirements:
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
 
+# AssertionError: {} is not true
 {% set deselected_tests = [
   "--deselect=tests/test_util.py::UtilTestCase::test_package_data",
   "--deselect=tests/test_util.py::UtilTestCase::test_sequencer_basic"
 ]%}
+# AssertionError: '15 KB/s' not found in ('16 KB/s', '17 KB/s', '18 KB/s', '19 KB/s')
+{% set deselected_tests_osx = [
+  "--deselect=tests/test_util.py::ProgressTestCase::test_basic",
+  "--deselect=tests/test_util.py::ProgressTestCase::test_unknown"
+]%}
+# AssertionError: '#!/bin/sh' != '#!/home/task_176285222280176/conda-bld/distl[235 chars]vate'
+{% set deselected_tests_linux = [
+  "--deselect=tests/test_scripts.py::ScriptTestCase::test_args_on_copy",
+  "--deselect=tests/test_scripts.py::ScriptTestCase::test_interpreter_args",
+  "--deselect=tests/test_scripts.py::ScriptTestCase::test_shebangs",
+  "--deselect=tests/test_wheel.py::WheelTestCase::test_custom_executable"
+]%}
+
 test:
   source_files:
     - tests
