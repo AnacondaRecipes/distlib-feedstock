@@ -1,13 +1,30 @@
 {% set name = "distlib" %}
-{% set version = "0.4.0" %}
+{% set version = "0.4.3" %}
+{% set deselected_tests = [
+  "--deselect=tests/test_util.py::UtilTestCase::test_package_data",
+  "--deselect=tests/test_util.py::UtilTestCase::test_sequencer_basic"
+] %}
+{% set deselected_tests_osx = [
+  "--deselect=tests/test_util.py::ProgressTestCase::test_basic",
+  "--deselect=tests/test_util.py::ProgressTestCase::test_unknown"
+] %}
+{% set deselected_tests_linux = [
+  "--deselect=tests/test_scripts.py::ScriptTestCase::test_args_on_copy",
+  "--deselect=tests/test_scripts.py::ScriptTestCase::test_interpreter_args",
+  "--deselect=tests/test_scripts.py::ScriptTestCase::test_shebangs",
+  "--deselect=tests/test_wheel.py::WheelTestCase::test_custom_executable"
+] %}
 
+# AssertionError: {} is not true
+# AssertionError: '15 KB/s' not found in ('16 KB/s', '17 KB/s', '18 KB/s', '19 KB/s')
+# AssertionError: '#!/bin/sh' != '#!/home/task_176285222280176/conda-bld/distl[235 chars]vate'
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: feec40075be03a04501a973d81f633735b4b69f98b05450592310c0f401a4e0d
+  sha256: f152097224a0ae24be5a0f6bae1b9359af82133bce63f98a95f86cae1aede9ed
 
 build:
   number: 0
@@ -18,31 +35,13 @@ requirements:
   host:
     - pip
     - python
-    - setuptools >=44
-    - wheel >=0.29.0
+    - setuptools >=68
+    - wheel
   run:
     - python
   build:
     - {{ compiler('c') }}
     - {{ stdlib('c') }}
-
-# AssertionError: {} is not true
-{% set deselected_tests = [
-  "--deselect=tests/test_util.py::UtilTestCase::test_package_data",
-  "--deselect=tests/test_util.py::UtilTestCase::test_sequencer_basic"
-]%}
-# AssertionError: '15 KB/s' not found in ('16 KB/s', '17 KB/s', '18 KB/s', '19 KB/s')
-{% set deselected_tests_osx = [
-  "--deselect=tests/test_util.py::ProgressTestCase::test_basic",
-  "--deselect=tests/test_util.py::ProgressTestCase::test_unknown"
-]%}
-# AssertionError: '#!/bin/sh' != '#!/home/task_176285222280176/conda-bld/distl[235 chars]vate'
-{% set deselected_tests_linux = [
-  "--deselect=tests/test_scripts.py::ScriptTestCase::test_args_on_copy",
-  "--deselect=tests/test_scripts.py::ScriptTestCase::test_interpreter_args",
-  "--deselect=tests/test_scripts.py::ScriptTestCase::test_shebangs",
-  "--deselect=tests/test_wheel.py::WheelTestCase::test_custom_executable"
-]%}
 
 test:
   source_files:
@@ -54,9 +53,9 @@ test:
     - pytest
   commands:
     - pip check
-    - pytest -vv {{ deselected_tests | join(" ")}} # [win]
-    - pytest -vv {{ deselected_tests | join(" ")}} {{ deselected_tests_linux | join(" ")}} # [linux]
-    - pytest -vv {{ deselected_tests | join(" ")}} {{ deselected_tests_osx | join(" ")}} # [osx]
+    - pytest -vv {{ deselected_tests | join(" ")}}  # [win]
+    - pytest -vv {{ deselected_tests | join(" ")}} {{ deselected_tests_linux | join(" ")}}  # [linux]
+    - pytest -vv {{ deselected_tests | join(" ")}} {{ deselected_tests_osx | join(" ")}}  # [osx]
 
 about:
   home: https://pypi.org/project/distlib
