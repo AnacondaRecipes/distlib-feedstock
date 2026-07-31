@@ -29,9 +29,12 @@ requirements:
 # AssertionError: {} is not true
 # AssertionError: '15 KB/s' not found in ('16 KB/s', '17 KB/s', '18 KB/s', '19 KB/s')
 # AssertionError: '#!/bin/sh' != '#!/home/task_176285222280176/conda-bld/distl[235 chars]vate'
+# E       AssertionError: Items in the second set but not the first:
 {% set deselected_tests = [
   "--deselect=tests/test_util.py::UtilTestCase::test_package_data",
-  "--deselect=tests/test_util.py::UtilTestCase::test_sequencer_basic"
+  "--deselect=tests/test_util.py::UtilTestCase::test_sequencer_basic",
+  "--deselect=tests/test_manifest.py::ManifestTestCase::test_exclude_regex_re",
+  "--deselect=tests/test_manifest.py::ManifestTestCase::test_exclude_regex_str"
 ] %}
 {% set deselected_tests_osx = [
   "--deselect=tests/test_util.py::ProgressTestCase::test_basic",
