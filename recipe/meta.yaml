@@ -1,5 +1,5 @@
 {% set name = "distlib" %}
-{% set version = "0.4.3" %}
+{% set version = "0.4.4" %}
 
 package:
   name: {{ name }}
@@ -7,13 +7,16 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: f152097224a0ae24be5a0f6bae1b9359af82133bce63f98a95f86cae1aede9ed
+  sha256: ca4175b4ac7f71223cc30ed7248c45d2b38c2439d8ee6e498ab67ed63cf3508d
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
 
 requirements:
+  build:
+    - {{ stdlib('c') }}
+    - {{ compiler('c') }}
   host:
     - pip
     - python
@@ -21,9 +24,6 @@ requirements:
     - wheel
   run:
     - python
-  build:
-    - {{ stdlib('c') }}
-    - {{ compiler('c') }}
 
 # AssertionError: {} is not true
 # AssertionError: '15 KB/s' not found in ('16 KB/s', '17 KB/s', '18 KB/s', '19 KB/s')
